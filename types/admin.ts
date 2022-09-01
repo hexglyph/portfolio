@@ -1,6 +1,8 @@
 //Admin types
 
 export interface Admin {
+    length: number;
+    map(arg0: (admin: any) => JSX.Element): import("react").ReactNode;
     id: string;
     name: string;
     email: string;
