@@ -1,4 +1,4 @@
-const [attachment, setAttachment] = useState('')
+/*const [attachment, setAttachment] = useState('')
 const [filename, setFilename] = useState('')
 const [filetype, setFiletype] = useState('')
 
@@ -34,3 +34,4 @@ async function handleOnSubmit(e: { preventDefault: () => void }) {
         }
     }
 }}/>
+*/

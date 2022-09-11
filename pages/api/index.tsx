@@ -68,27 +68,18 @@ import clientPromise from '../../lib/mongodb'
         }]
 */
 
-
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await NextCors(req, res, {
         // Options
         methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
         origin: "*",
-        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+        optionsSuccessStatus: 200,
     })
-
-    //res.json({ message: "Hello Everyone!" })
-
     const client = await clientPromise
-
-    /*const { slug } = req.body
-    const admins = await client.collection('admin').get()
-    const adminData = admins.docs.map(doc => doc.data())
-    res.json(adminData)*/
-
     const db = client.db('hex')
     const collection = db.collection('portfolio')
     const result = await collection.find({}).toArray()
-    //Filter post
     res.json(result)
 }
+
+export default handler
