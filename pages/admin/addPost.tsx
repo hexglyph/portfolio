@@ -128,8 +128,8 @@ export default function AddPost(props: any) {
                             (e) => {
                                 if(e.target!.files[0] === null) {
                                     setMedia('')
-                                    setFilename('')
-                                    setFiletype('')
+                                    setFileName('')
+                                    setFileType('')
                                 }
                                 else {
                                     console.log(e.target!.files[0])
