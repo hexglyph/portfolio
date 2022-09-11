@@ -56,7 +56,7 @@ export default function PostPage(props) {
             setContent(post[0].content)
             setPostId(post[0]._id)
         }
-    }, [id])
+    }, [allPosts, id])
 
 
     return (

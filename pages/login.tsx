@@ -21,7 +21,7 @@ export default function Login(props: any) {
               setLoading(false);
           }
       })
-    }, [])
+    }, [router])
 
     if (loading) {
         return <Loading />
