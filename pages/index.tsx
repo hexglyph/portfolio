@@ -8,7 +8,7 @@ import Layout from '../components/Layout/Layout'
 import axios from 'axios'
 
 export async function getServerSideProps(context) {
-  let res = await axios.get('http://localhost:3000/api/posts')
+  let res = await axios.get('/api/posts')
             .then((res) => {
               return res.data
             })
