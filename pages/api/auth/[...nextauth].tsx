@@ -1,9 +1,11 @@
+/* eslint-disable */
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { getCsrfToken, signIn } from "next-auth/react"
 import bcrypt from "bcrypt"
 import clientPromise from "../../../lib/mongodb"
 import axios from "axios"
+
 
 export default NextAuth({
     session: {
