@@ -4,7 +4,6 @@ import { getCsrfToken, signIn } from "next-auth/react"
 import bcrypt from "bcrypt"
 import clientPromise from "../../../lib/mongodb"
 import axios from "axios"
-import models from "../../../models"
 
 export default NextAuth({
     session: {
