@@ -59,7 +59,7 @@ export default NextAuth({
 })
 
 const loginUser = async ({password, user}) => {
-    const response = await axios.post('/api/auth/signin', {
+    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/api/auth/signin", {
         email: user,
         password: password
     })
