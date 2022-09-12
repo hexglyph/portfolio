@@ -23,7 +23,7 @@ import axios from 'axios'
 import Image from 'next/image'
 
 export async function getServerSideProps(context) {
-  let res = await axios.get(process.env.NEXT_PUBLIC_API_URL+"/api/posts")
+  let res = await axios.get(process.env.NEXT_PUBLIC_APP_API_POSTS)
             .then((res) => {
                 return res.data
             })

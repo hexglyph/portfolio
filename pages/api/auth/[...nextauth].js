@@ -42,10 +42,10 @@ export default NextAuth({
             const client = await clientPromise
             const db = await client.db("hex")
             const collection = await db.collection("users")
-            console.log(session.session.user.email)
+            //console.log(session.session.user.email)
             let user = await collection.findOne({ email: session.session.user.email })
             session.session.user.role = user.role
-            console.log(session.session.user)
+            //console.log(session.session.user)
 
             return session
         }
@@ -59,7 +59,7 @@ export default NextAuth({
 })
 
 const loginUser = async ({password, user}) => {
-    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL+"/api/auth/signin", {
+    const response = await axios.post("http://localhost:3000/api/auth/signin", {
         email: user,
         password: password
     })

@@ -73,7 +73,7 @@ import clientPromise from '../../lib/mongodb'
 
 
 export async function getServerSideProps(context) {
-    let res = await fetch(process.env.NEXT_PUBLIC_API_URL+"/api/posts", {
+    let res = await fetch(process.env.NEXT_PUBLIC_APP_API_POSTS, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

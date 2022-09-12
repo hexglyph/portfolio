@@ -67,6 +67,7 @@
 import { GetServerSideProps } from 'next'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 export default function LastThreePosts() {
     const [posts, setPosts] = useState([])
@@ -74,8 +75,8 @@ export default function LastThreePosts() {
 
     useEffect(() => {
         const getPosts = async () => {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL+"/api/posts")
-            const data = await res.json()
+            const res = await axios.get(process.env.NEXT_PUBLIC_APP_API_POSTS)
+            const data = await res.data
 
             // Get the last three posts from data
             const lastThreePosts = data[0].post.slice(-2)

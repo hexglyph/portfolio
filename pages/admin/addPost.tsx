@@ -58,7 +58,7 @@ export default function AddPost(props: any) {
 
 
         setLoading(true)
-        let res = await axios.get('http://localhost:3000/api/posts').then((res) => {
+        let res = await axios.get(process.env.NEXT_PUBLIC_APP_API_POSTS).then((res) => {
             return res.data
         })
         res = res.data
@@ -85,7 +85,7 @@ export default function AddPost(props: any) {
             fileType: fileType
         }
         console.log(post)
-        await axios.post(process.env.NEXT_PUBLIC_API_URL+"/api/posts", post)
+        await axios.post(process.env.NEXT_PUBLIC_APP_API_POSTS, post)
             .then((res) => {
                 console.log(res)
             })
