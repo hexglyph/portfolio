@@ -17,16 +17,21 @@ export default async function handler(req, res) {
       const allPosts = await db.collection("posts").find({}).toArray()
       res.json({ status: 200, data: allPosts })
       break
-    /*case "PUT":
-      bodyObject = JSON.parse(req.body)
-      myPost = await db.collection("posts").updateOne({ _id: bodyObject._id }, { $set: bodyObject })
-      res.json(myPost)
-      break
     case "DELETE":
-      bodyObject = JSON.parse(req.body)
-      myPost = await db.collection("posts").deleteOne({ _id: bodyObject._id })
-      res.json(myPost)
-      break    
-    */
+      // Delete post from database
+      let id = req.body.id
+      await posts.deleteOne({ _id: id })
+      res.status(200).json({ success: true })
+      break
+    case "PUT":
+      // Update post in database
+      let updatedPost = req.body
+      await posts.updateOne(
+        { _id: updatedPost._id },
+        { $set: { title: updatedPost.title, content: updatedPost.content } }
+      )
+      res.status(200).json({ success: true })
+      break
+    
   }
 }

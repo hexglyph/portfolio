@@ -49,11 +49,12 @@ export default function AddPost(props: any) {
         e.preventDefault()
 
         // Verify user role
-        if (props.session.user.role !== '1') {
-            console.log(props.session.user.role)
+        if (props.session.session.user.role !== 'admin') {
+            console.log(props.session.session.user.role)
             alert('You are not authorized to add a post')
             return
         }
+        console.log(props.session.session.user.role)
 
 
 

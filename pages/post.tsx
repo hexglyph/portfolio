@@ -37,7 +37,6 @@ export async function getServerSideProps(context) {
 
 export default function PostPage(props) {
 
-    const [postsState, setPostsState] = useState(props.allPosts.data) 
     const [posts, setPosts] = useState(props.allPosts.data)
     const [title, setTitle] = useState(props.allPosts.data[0].title)
     const [content, setContent] = useState(props.allPosts.data[0].content)
@@ -65,7 +64,7 @@ export default function PostPage(props) {
                 <div className="">
                     <div className="">
                         {
-                            postsState.map((post) => {
+                            posts.map((post) => {
                                 return (
                                     <div key={post._id}>
                                         <h1>{post.title}</h1>

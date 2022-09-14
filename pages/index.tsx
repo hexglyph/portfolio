@@ -12,15 +12,14 @@ export async function getServerSideProps(context) {
             .then((res) => {
               return res.data
             })
-  let lasttwoposts = res
   let data = res
   return {
-    props: {data, lasttwoposts},
+    props: {data},
   }
 }
 export default function Home(props) {
   let data = props.data.data
-  let lasttwoposts = props.lasttwoposts
+  let lasttwoposts = props.data
   // Get the last two posts from data
   lasttwoposts = lasttwoposts.data.slice(-2)
 
@@ -30,6 +29,11 @@ export default function Home(props) {
   const [post, setPost] = useState(data[0])
   const [postIndex, setPostIndex] = useState(0)
   const [isPost, setIsPost] = useState(false)
+
+  const [ postNum, setPostNum] = useState(1)
+  function handleLoadMore() {
+    setPostNum(prevPostNum => prevPostNum + 1)
+  }
   useEffect(() => {
     if (router.query.id) {
       const index = posts.findIndex((post) => post._id === router.query.id)
@@ -69,6 +73,7 @@ export default function Home(props) {
         <h2>Last 2 posts</h2>
         <div className="w-full flex flex-col items-center justify-center">
           {
+            // Load the last two posts
             lasttwoposts.map((post, index) => {
               return (
                 <div
@@ -81,14 +86,11 @@ export default function Home(props) {
               )
             }
           )}
-
-
-          
-
         </div>
         <div className="w-full flex flex-col items-center justify-center">
           <h2>All posts</h2>
           {
+            // Load all posts
             posts.map((post, index) => {
             return (
               <div
@@ -115,7 +117,43 @@ export default function Home(props) {
               </div>
             )})
           }
-        </div>                
+        </div>  
+        <div className='bg-sky-500'>
+          {
+            // Load more posts
+            posts.slice(0, postNum).map(
+              (post, index) => {
+                return (
+                  <div
+                    key={post._id}
+                    className="w-full flex flex-col items-center justify-center"
+                  >
+                    <h3>{post.title}</h3>
+                    <p>{post.content}</p>
+                    <button onClick={() => handlePost(index)}>Read more</button>
+
+                    {isPost && (
+                      <div className="w-full flex flex-col items-center justify-center">
+                        <button onClick={handleNext}>Next</button>
+                        <button onClick={handlePrev}>Prev</button>
+
+                        <h3>{post.title}</h3>
+                        <p>{post.content}</p>
+
+                        <button onClick={() => handlePost(index)}>Read more</button>
+                        <button onClick={() => router.push('/')}>Back</button>
+                        <button onClick={() => router.push('/')}>Back</button>
+                      </div>
+                    )}
+                  </div>
+                )
+              }
+            )
+          }
+
+          <button onClick={handleLoadMore}>Load More</button>
+
+      </div>              
       </div>
     </Layout>
   )
