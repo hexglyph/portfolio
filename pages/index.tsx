@@ -95,7 +95,10 @@ export default function Home(props) {
         <div>
           Load data from getCmsData:
           <div>
-            {cms.title}
+            {
+              // verify if cms data is loaded
+              cms && cms.title !== '' ? cms.title : 'Loading...'
+            }
           </div>
         </div>
         <h2>Last 2 posts</h2>
