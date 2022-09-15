@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import BasicInfo from '../components/BasicInfo'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout/Layout'
-import useAppData from '../data/hook/UseAppData'
 import axios from 'axios'
 
 export async function getServerSideProps(context) {
@@ -13,17 +12,9 @@ export async function getServerSideProps(context) {
             .then((res) => {
               return res.data
             })
-  let cms = await axios.get(process.env.NEXT_PUBLIC_APP_API_CMS)
-            .then((res) => {
-              return res.data
-            })
   let data = res
-  let cmsData = cms
   return {
-    props: {
-      data,
-      cmsData
-    },
+    props: {data},
   }
 }
 export default function Home(props) {
@@ -31,7 +22,6 @@ export default function Home(props) {
   let lasttwoposts = props.data
   // Get the last two posts from data
   lasttwoposts = lasttwoposts.data.slice(-2)
-  let cmsprop = props.cmsData
 
   const router = useRouter()
   const [posts, setPosts] = useState(data)
@@ -40,19 +30,6 @@ export default function Home(props) {
   const [isPost, setIsPost] = useState(false)
 
   const [ postNum, setPostNum] = useState(1)
-
-  const { htmlSize, switchTheme, switchMenu, theme, menu, size, setCmsData, cms } = useAppData()
-
-  useEffect(() => {
-    setCmsData(cmsprop.data[0])
-    console.log('cms',cms)
-  }, [
-    setCmsData,
-    cmsprop,
-    cms
-  ])
-
-
   function handleLoadMore() {
     setPostNum(prevPostNum => prevPostNum + 1)
   }
@@ -92,12 +69,6 @@ export default function Home(props) {
       <Hero />
       <BasicInfo />
       <div className="w-full flex flex-col items-center justify-center">
-        <div>
-          Load data from getCmsData:
-          <div>
-            {cms.title}
-          </div>
-        </div>
         <h2>Last 2 posts</h2>
         <div className="w-full flex flex-col items-center justify-center">
           {

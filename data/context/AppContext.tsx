@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 interface AppContextProps {
+    cms?: any
     theme?: string
     menu?: string
     size?: number
@@ -10,14 +11,29 @@ interface AppContextProps {
     htmlSize?: any
     switchTheme?: () => void
     switchMenu?: () => void
+    setCmsData?: any
+    getCmsData?: () => void
 }
 
 const AppContext = createContext<AppContextProps>({})
 
 export function AppProvider(props: { children: any; }) {
+    const [cms, setCms] = useState<any>(null)
     const [size, setSize] = useState<number>(16)
     const [theme, setTheme] = useState<string>('')
     const [menu, setMenu] = useState<string>('hidden')
+
+    function setCmsData(data: any) {
+        setCms(data)
+        localStorage.setItem('cms', JSON.stringify(data))
+    }
+    function getCmsData() {
+        const cmsData = localStorage.getItem('cms')
+        if (cmsData) {
+            setCms(JSON.parse(cmsData))
+        }
+        return cmsData
+    }
 
     function htmlSize(fontsize: number) {
         //const newSize = size === '' ? 16 : ''
@@ -36,7 +52,10 @@ export function AppProvider(props: { children: any; }) {
         setMenu(newMenu)
         sessionStorage.setItem('menu', newMenu)
     }
-
+    useEffect(() => {
+        const cms = localStorage.getItem('cms')
+        setMenu(cms || '')
+    }, [])
     useEffect(() => {
         const sizeSaved = sessionStorage.getItem('size')
         setSize(16)
@@ -52,12 +71,15 @@ export function AppProvider(props: { children: any; }) {
 
     return (
         <AppContext.Provider value={{
+            cms,
             theme,
             menu,
             size,
             htmlSize,
             switchMenu,
-            switchTheme
+            switchTheme,
+            setCmsData,
+            getCmsData
         }}>
             {props.children}
         </AppContext.Provider>
